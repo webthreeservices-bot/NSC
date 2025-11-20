@@ -1,0 +1,297 @@
+{
+  "timestamp": "2025-11-14T01:05:58.667Z",
+  "summary": {
+    "total_enums_local": 19,
+    "total_enums_live": 19,
+    "total_tables_live": 29,
+    "total_typescript_models": 5,
+    "critical_issues": 1,
+    "enum_mismatches": 0,
+    "typescript_mismatches": 5
+  },
+  "mismatches": {
+    "enums": {
+      "missing_in_live": [],
+      "missing_in_local": [],
+      "value_mismatches": []
+    },
+    "tables": {
+      "missing_in_local": [
+        "AdminLog",
+        "ApiLog",
+        "AuditLog",
+        "BlockchainScanState",
+        "BotActivation",
+        "CronJob",
+        "CronJobExecution",
+        "EmailLog",
+        "ErrorLog",
+        "KYCSubmission",
+        "LoginAttempt",
+        "Notification",
+        "PaymentConfirmation",
+        "PaymentRequest",
+        "PaymentWebhook",
+        "PlatformWallet",
+        "RateLimitTracking",
+        "ReferralCounter",
+        "RoiPayment",
+        "RoiSettings",
+        "Session",
+        "SupportTicket",
+        "TicketMessage",
+        "Transaction"
+      ],
+      "found_in_both": [
+        "User",
+        "Package",
+        "Earning",
+        "Withdrawal",
+        "SystemSetting"
+      ]
+    },
+    "typescript_mismatches": [
+      {
+        "table": "User",
+        "issue": "missing_in_live",
+        "fields": [
+          "name"
+        ]
+      },
+      {
+        "table": "Package",
+        "issue": "missing_in_live",
+        "fields": [
+          "expiresAt"
+        ]
+      },
+      {
+        "table": "Earning",
+        "issue": "missing_in_live",
+        "fields": [
+          "updatedAt"
+        ]
+      },
+      {
+        "table": "Withdrawal",
+        "issue": "missing_in_live",
+        "fields": [
+          "transactionHash"
+        ]
+      },
+      {
+        "table": "Withdrawal",
+        "field": "status",
+        "issue": "enum_values_mismatch",
+        "expected": [
+          "PENDING",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "actual": [
+          "PENDING",
+          "APPROVED",
+          "PROCESSING",
+          "COMPLETED",
+          "REJECTED",
+          "CANCELLED"
+        ],
+        "missing": [
+          "FAILED"
+        ]
+      }
+    ],
+    "critical_issues": [
+      "Withdrawal.status enum mismatch - application may fail"
+    ],
+    "warnings": []
+  },
+  "live_enums": {
+    "AdminActionType": [
+      "APPROVE_WITHDRAWAL",
+      "REJECT_WITHDRAWAL",
+      "APPROVE_PACKAGE",
+      "REJECT_PACKAGE",
+      "UPDATE_SETTING",
+      "APPROVE_KYC",
+      "REJECT_KYC",
+      "BLOCK_USER",
+      "UNBLOCK_USER",
+      "CREDIT_BALANCE",
+      "DEBIT_BALANCE",
+      "TRIGGER_ROI",
+      "TRIGGER_EXPIRATION",
+      "UPDATE_USER",
+      "DELETE_USER",
+      "VIEW_STATISTICS",
+      "EXPORT_DATA"
+    ],
+    "BotStatus": [
+      "ACTIVE",
+      "EXPIRED",
+      "INACTIVE",
+      "SUSPENDED"
+    ],
+    "CronJobStatus": [
+      "IDLE",
+      "RUNNING",
+      "COMPLETED",
+      "FAILED",
+      "DISABLED"
+    ],
+    "EarningType": [
+      "DIRECT_REFERRAL",
+      "LEVEL_INCOME",
+      "REFERRAL",
+      "ROI",
+      "DIRECT",
+      "BONUS"
+    ],
+    "KYCStatus": [
+      "PENDING",
+      "SUBMITTED",
+      "APPROVED",
+      "REJECTED",
+      "RESUBMIT"
+    ],
+    "Network": [
+      "BEP20",
+      "TRC20",
+      "ERC20",
+      "POLYGON",
+      "MANUAL"
+    ],
+    "NotificationType": [
+      "INFO",
+      "SUCCESS",
+      "WARNING",
+      "ERROR",
+      "PAYMENT",
+      "WITHDRAWAL",
+      "REFERRAL",
+      "ROI",
+      "KYC",
+      "SECURITY"
+    ],
+    "PackageStatus": [
+      "PENDING",
+      "ACTIVE",
+      "EXPIRED",
+      "WITHDRAWN",
+      "CANCELLED",
+      "COMPLETED"
+    ],
+    "PackageType": [
+      "NEO",
+      "NEURAL",
+      "ORACLE"
+    ],
+    "PaymentStatus": [
+      "PENDING",
+      "CONFIRMING",
+      "COMPLETED",
+      "FAILED",
+      "EXPIRED",
+      "CANCELLED"
+    ],
+    "RoiPaymentStatus": [
+      "PENDING",
+      "PROCESSING",
+      "COMPLETED",
+      "FAILED",
+      "SKIPPED"
+    ],
+    "SessionStatus": [
+      "ACTIVE",
+      "EXPIRED",
+      "REVOKED",
+      "INVALID"
+    ],
+    "TicketPriority": [
+      "LOW",
+      "MEDIUM",
+      "HIGH",
+      "URGENT",
+      "CRITICAL"
+    ],
+    "TicketStatus": [
+      "OPEN",
+      "IN_PROGRESS",
+      "WAITING_USER",
+      "WAITING_ADMIN",
+      "RESOLVED",
+      "CLOSED",
+      "REOPENED"
+    ],
+    "TransactionStatus": [
+      "PENDING",
+      "CONFIRMING",
+      "COMPLETED",
+      "FAILED",
+      "REJECTED"
+    ],
+    "TransactionType": [
+      "DEPOSIT",
+      "WITHDRAWAL",
+      "BOT_FEE",
+      "BOT_ACTIVATION",
+      "ROI_PAYMENT",
+      "REFERRAL_BONUS",
+      "LEVEL_INCOME",
+      "CAPITAL_RETURN",
+      "PACKAGE_PURCHASE",
+      "ADMIN_CREDIT",
+      "ADMIN_DEBIT"
+    ],
+    "UserRole": [
+      "USER",
+      "ADMIN",
+      "SUPER_ADMIN"
+    ],
+    "WithdrawalStatus": [
+      "PENDING",
+      "APPROVED",
+      "PROCESSING",
+      "COMPLETED",
+      "REJECTED",
+      "CANCELLED"
+    ],
+    "WithdrawalType": [
+      "ROI_ONLY",
+      "CAPITAL",
+      "CAPITAL_ONLY",
+      "FULL_AMOUNT"
+    ]
+  },
+  "live_tables": [
+    "AdminLog",
+    "ApiLog",
+    "AuditLog",
+    "BlockchainScanState",
+    "BotActivation",
+    "CronJob",
+    "CronJobExecution",
+    "Earning",
+    "EmailLog",
+    "ErrorLog",
+    "KYCSubmission",
+    "LoginAttempt",
+    "Notification",
+    "Package",
+    "PaymentConfirmation",
+    "PaymentRequest",
+    "PaymentWebhook",
+    "PlatformWallet",
+    "RateLimitTracking",
+    "ReferralCounter",
+    "RoiPayment",
+    "RoiSettings",
+    "Session",
+    "SupportTicket",
+    "SystemSetting",
+    "TicketMessage",
+    "Transaction",
+    "User",
+    "Withdrawal"
+  ]
+}

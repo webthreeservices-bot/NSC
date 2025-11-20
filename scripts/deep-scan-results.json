@@ -1,0 +1,128 @@
+[
+  {
+    "file": "app\\api\\admin\\bot-packages\\route.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "app\\api\\admin\\users\\route.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "isActive",
+    "correct": "status",
+    "fix": "Use \"status\" instead of \"isActive\""
+  },
+  {
+    "file": "app\\api\\admin\\users\\route.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "isActive",
+    "correct": "status",
+    "fix": "Use \"status\" instead of \"isActive\""
+  },
+  {
+    "file": "app\\api\\auth\\register\\route.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "app\\api\\earnings\\history\\route.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Earning",
+    "wrong": "type",
+    "correct": "earningType",
+    "fix": "Use \"earningType\" instead of \"type\""
+  },
+  {
+    "file": "app\\api\\payments\\webhook\\route.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "app\\api\\user\\kyc\\submit\\route.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "app\\api\\user\\profile\\route.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "isActive",
+    "correct": "status",
+    "fix": "Use \"status\" instead of \"isActive\""
+  },
+  {
+    "file": "lib\\db-new.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "User",
+    "wrong": "name",
+    "correct": "fullName",
+    "fix": "Use \"fullName\" instead of \"name\""
+  },
+  {
+    "file": "lib\\db.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "isActive",
+    "correct": "status",
+    "fix": "Use \"status\" instead of \"isActive\""
+  },
+  {
+    "file": "services\\blockchainScannerService.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "services\\botIncomeService.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "services\\enhancedBotService.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "services\\enhancedPackageService.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "services\\packageService.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "expiresAt",
+    "correct": "expiryDate",
+    "fix": "Use \"expiryDate\" instead of \"expiresAt\""
+  },
+  {
+    "file": "services\\referralService.ts",
+    "type": "MISSING_ENUM_CAST",
+    "issue": "Status value without enum cast",
+    "fix": "Add ::\"EnumType\" after status value"
+  },
+  {
+    "file": "services\\roiService.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Package",
+    "wrong": "description",
+    "correct": "notes",
+    "fix": "Use \"notes\" instead of \"description\""
+  },
+  {
+    "file": "services\\roiService.ts",
+    "type": "WRONG_FIELD_NAME",
+    "table": "Earning",
+    "wrong": "type",
+    "correct": "earningType",
+    "fix": "Use \"earningType\" instead of \"type\""
+  }
+]

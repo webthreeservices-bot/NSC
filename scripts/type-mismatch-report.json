@@ -1,0 +1,302 @@
+{
+  "issues": [
+    {
+      "severity": "MEDIUM",
+      "function": "assign_unique_referral_code_after_bot_purchase",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "assign_unique_referral_code_after_bot_purchase",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "create_event_notification",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "adminId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "targetId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "adminId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "targetId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "adminId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "targetId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "adminId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "HIGH",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "issue": "Enum cast missing",
+      "detail": "Value 'SYSTEM' should be cast to enum type",
+      "fix": "'SYSTEM'::\"AdminActionType\""
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "log_admin_action",
+      "table": "AdminLog",
+      "column": "targetId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'REFERRAL_BONUS' should be cast to enum type",
+      "fix": "'REFERRAL_BONUS'::\"TransactionType\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'LEVEL_INCOME' should be cast to enum type",
+      "fix": "'LEVEL_INCOME'::\"TransactionType\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'REFERRAL_BONUS' should be cast to enum type",
+      "fix": "'REFERRAL_BONUS'::\"TransactionStatus\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'LEVEL_INCOME' should be cast to enum type",
+      "fix": "'LEVEL_INCOME'::\"TransactionStatus\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'REFERRAL_BONUS' should be cast to enum type",
+      "fix": "'REFERRAL_BONUS'::\"Network\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Transaction",
+      "issue": "Enum cast missing",
+      "detail": "Value 'LEVEL_INCOME' should be cast to enum type",
+      "fix": "'LEVEL_INCOME'::\"Network\""
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "column": "fromUserId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "column": "packageId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "column": "transactionId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "issue": "Enum cast missing",
+      "detail": "Value 'DIRECT_REFERRAL' should be cast to enum type",
+      "fix": "'DIRECT_REFERRAL'::\"EarningType\""
+    },
+    {
+      "severity": "HIGH",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "issue": "Enum cast missing",
+      "detail": "Value 'LEVEL_INCOME' should be cast to enum type",
+      "fix": "'LEVEL_INCOME'::\"EarningType\""
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Earning",
+      "column": "sourceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Notification",
+      "column": "userId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    },
+    {
+      "severity": "MEDIUM",
+      "function": "process_referral_earnings",
+      "table": "Notification",
+      "column": "referenceId",
+      "issue": "UUID cast to text",
+      "detail": "Using gen_random_uuid()::text instead of keeping as UUID",
+      "fix": "Remove ::text cast or use directly"
+    }
+  ],
+  "timestamp": "2025-11-14T00:56:48.761Z"
+}

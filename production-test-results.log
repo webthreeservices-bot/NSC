@@ -1,0 +1,127 @@
+[dotenv@17.2.3] injecting env (42) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[35m
+╔════════════════════════════════════════════════╗[0m
+[35m║   PRODUCTION READINESS - CRITICAL LOGIC TEST  ║[0m
+[35m╚════════════════════════════════════════════════╝
+[0m
+[36m
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[36m1. PAYMENT FLOW TESTING[0m
+[36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0m
+[32m✓ PaymentRequest table accessible[0m
+[33m  Found 5 payment requests[0m
+[36m
+Payment Status Distribution:[0m
+[33m  PENDING: 32[0m
+[32m✓ Payment confirmations tracked[0m
+[33m  Total: 0, Confirmed: null[0m
+[32m✓ Payment webhooks logged[0m
+[33m  Total: 0, Processed: null[0m
+[31m✗ Payment-to-Package linking[0m
+[33m  0 completed payments linked to packages[0m
+[36m
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[36m2. WITHDRAWAL LOGIC TESTING[0m
+[36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0m
+[32m✓ Withdrawal table accessible[0m
+[33m  Found 0 withdrawals[0m
+[32m✓ Withdrawal fee calculation (10%)[0m
+[33m  No withdrawals to test[0m
+[32m✓ Trigger: withdrawal_validate_amount[0m
+[32m✓ Trigger: withdrawal_calculate_net[0m
+[32m✓ Trigger: withdrawal_create_transaction[0m
+[36m
+Withdrawal Status Distribution:[0m
+[32m✓ Withdrawal transactions created[0m
+[33m  0 withdrawal transactions recorded[0m
+[36m
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[36m3. ROI DISTRIBUTION LOGIC[0m
+[36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0m
+[32m✓ Active packages found[0m
+[33m  10 active packages ready for ROI[0m
+[32m✓ Packages due for ROI payment[0m
+[33m  0 packages currently due for ROI payment[0m
+[36m
+Active Packages Ready for ROI:[0m
+[33m  Package: 9bf506ec... (test2@gmail.com)[0m
+[33m    Amount: $50000.00000000 | ROI: 5.00% ($2500.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: 34d0e4a0... (test@gmail.com)[0m
+[33m    Amount: $500.00000000 | ROI: 3.00% ($15.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: 6bae7d51... (heyme@heyme.com)[0m
+[33m    Amount: $1000.00000000 | ROI: 3.00% ($30.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: 5fde752d... (heyme@heyme.com)[0m
+[33m    Amount: $1000.00000000 | ROI: 3.00% ($30.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: f55bb692... (test@gmail.com)[0m
+[33m    Amount: $500.00000000 | ROI: 3.00% ($15.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: 017802da... (test@gmail.com)[0m
+[33m    Amount: $1000.00000000 | ROI: 3.00% ($30.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: 044ddd1c... (tst@tst.com)[0m
+[33m    Amount: $1000.00000000 | ROI: 3.00% ($30.00)[0m
+[33m    Paid: 0/12 | Next: 11/12/2025 [0m
+[33m  Package: f2f6306b... (test2@gmail.com)[0m
+[33m    Amount: $500.00000000 | ROI: 3.00% ($15.00)[0m
+[33m    Paid: 0/12 | Next: 13/12/2025 [0m
+[33m  Package: 9a945a83... (heyme@heyme.com)[0m
+[33m    Amount: $1000.00000000 | ROI: 3.00% ($30.00)[0m
+[33m    Paid: 0/12 | Next: 14/12/2025 [0m
+[33m  Package: 06b74d77... (test2@gmail.com)[0m
+[33m    Amount: $500.00000000 | ROI: 3.00% ($15.00)[0m
+[33m    Paid: 0/12 | Next: 14/12/2025 [0m
+[31m✗ get_withdrawable_balance function[0m
+[32m✓ process_referral_earnings function[0m
+[32m✓ ROI payment tracking[0m
+[33m  0 ROI payments totaling $0[0m
+[32m✓ ROI payment trigger exists[0m
+[33m  Trigger to update package after ROI payment[0m
+[36m
+ROI Cron Job Status:[0m
+[31m✗ ROI cron job configured[0m
+[33m  No ROI cron job found[0m
+[36m
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[36m4. REFERRAL BONUS CALCULATIONS[0m
+[36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0m
+[32m✓ Package referral trigger exists[0m
+[33m  Trigger fires on package creation to award referral bonus[0m
+[36m
+Earning Type Distribution:[0m
+[33m  DIRECT_REFERRAL: 3 earnings = $80.00000000[0m
+[32m✓ Direct referral earnings tracked[0m
+[33m  $80 in direct referral bonuses[0m
+[31m
+❌ FATAL ERROR: column e.sourcePackageId does not exist[0m
+error: column e.sourcePackageId does not exist
+    at C:\Users\LENOVO\Desktop\recov\vercel-download\src\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async testReferralBonuses (C:\Users\LENOVO\Desktop\recov\vercel-download\src\scripts\test-production-critical.js:382:31)
+    at async runAllTests (C:\Users\LENOVO\Desktop\recov\vercel-download\src\scripts\test-production-critical.js:475:5)
+    at async C:\Users\LENOVO\Desktop\recov\vercel-download\src\scripts\test-production-critical.js:514:22 {
+  length: 116,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '252',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}

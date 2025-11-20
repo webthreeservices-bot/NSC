@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "nsc-bot-platform": "file:.."
+  }
+}

@@ -1,0 +1,1060 @@
+{
+  "summary": {
+    "tables": 29,
+    "enums": 19,
+    "triggers": 29,
+    "functions": 125
+  },
+  "keyTables": {
+    "BotActivation": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "userId",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "packageId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "botType",
+          "type": "PackageType",
+          "nullable": false
+        },
+        {
+          "name": "activationFee",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "BotStatus",
+          "nullable": false
+        },
+        {
+          "name": "network",
+          "type": "Network",
+          "nullable": true
+        },
+        {
+          "name": "paymentTxHash",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "paymentRequestId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "activationDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "activatedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "expiryDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "expiredAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "isExpired",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "capitalReturned",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "totalEarnings",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "approvedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "approvedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        }
+      ]
+    },
+    "Package": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "userId",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "packageType",
+          "type": "PackageType",
+          "nullable": false
+        },
+        {
+          "name": "roiPercentage",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "PackageStatus",
+          "nullable": false
+        },
+        {
+          "name": "network",
+          "type": "Network",
+          "nullable": true
+        },
+        {
+          "name": "depositTxHash",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "paymentRequestId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "investmentDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "purchaseDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "activatedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "expiryDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "expiredAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "lastRoiDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "nextRoiDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "totalRoiPaid",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "roiPaidCount",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "totalEarnings",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "isExpired",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "capitalReturned",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "capitalReturnedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "approvedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "approvedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "rejectedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "rejectedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "rejectionReason",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        }
+      ]
+    },
+    "User": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "password",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "username",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "fullName",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "phone",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "referralCode",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "referredBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "referrerId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "bep20Address",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "trc20Address",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "erc20Address",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "polygonAddress",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "walletAddress",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "isEmailVerified",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "emailVerificationToken",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "emailVerificationExpiry",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "twoFactorEnabled",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "twoFactorSecret",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "twoFactorBackupCodes",
+          "type": "ARRAY",
+          "nullable": true
+        },
+        {
+          "name": "kycStatus",
+          "type": "KYCStatus",
+          "nullable": false
+        },
+        {
+          "name": "kycSubmittedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "kycApprovedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "kycRejectedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "kycRejectionReason",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "isAdmin",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "isBlocked",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "blockReason",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "blockedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "blockedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "role",
+          "type": "UserRole",
+          "nullable": false
+        },
+        {
+          "name": "lastLogin",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "lastLoginIp",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "failedLoginAttempts",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "accountLockedUntil",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "lastFailedLoginAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "passwordResetToken",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "passwordResetExpiry",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "avatar",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "dateOfBirth",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "country",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "city",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "zipCode",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "language",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "timezone",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "currency",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "emailNotifications",
+          "type": "boolean",
+          "nullable": true
+        },
+        {
+          "name": "smsNotifications",
+          "type": "boolean",
+          "nullable": true
+        },
+        {
+          "name": "acceptedTermsAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "acceptedPrivacyAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "termsVersion",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "privacyVersion",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "lastActiveAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "hasPurchasedBot",
+          "type": "boolean",
+          "nullable": false
+        }
+      ]
+    },
+    "Transaction": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "userId",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "type",
+          "type": "TransactionType",
+          "nullable": false
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "fee",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "netAmount",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "TransactionStatus",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "txHash",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "network",
+          "type": "Network",
+          "nullable": true
+        },
+        {
+          "name": "blockNumber",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "confirmations",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "fromAddress",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "toAddress",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "referenceId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "referenceType",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "relatedTransactionId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "balanceBefore",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "balanceAfter",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "processedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "processedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "completedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        }
+      ]
+    },
+    "Withdrawal": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "userId",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "transactionId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "fee",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "feePercentage",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "netAmount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "requestedAmount",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "type",
+          "type": "WithdrawalType",
+          "nullable": true
+        },
+        {
+          "name": "withdrawalType",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "walletAddress",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "network",
+          "type": "Network",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "WithdrawalStatus",
+          "nullable": false
+        },
+        {
+          "name": "txHash",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "blockNumber",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "approvedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "approvedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "rejectedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "rejectedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "rejectionReason",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "processedBy",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "processedDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "processedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "completedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "requestDate",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "requestedAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "userNote",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "adminNote",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        }
+      ]
+    },
+    "Earning": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "userId",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "fromUserId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "packageId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "transactionId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "earningType",
+          "type": "EarningType",
+          "nullable": false
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "level",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "percentage",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "sourceId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "sourceType",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "sourceAmount",
+          "type": "numeric",
+          "nullable": true
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "isPaid",
+          "type": "boolean",
+          "nullable": true
+        },
+        {
+          "name": "paidDate",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "paidAt",
+          "type": "timestamp without time zone",
+          "nullable": true
+        },
+        {
+          "name": "metadata",
+          "type": "jsonb",
+          "nullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "timestamp without time zone",
+          "nullable": false
+        }
+      ]
+    }
+  },
+  "enums": {
+    "AdminActionType": [
+      "{APPROVE_WITHDRAWAL,REJECT_WITHDRAWAL,APPROVE_PACKAGE,REJECT_PACKAGE,UPDATE_SETTING,APPROVE_KYC,REJECT_KYC,BLOCK_USER,UNBLOCK_USER,CREDIT_BALANCE,DEBIT_BALANCE,TRIGGER_ROI,TRIGGER_EXPIRATION,UPDATE_USER,DELETE_USER,VIEW_STATISTICS,EXPORT_DATA}"
+    ],
+    "BotStatus": [
+      "{ACTIVE,EXPIRED,INACTIVE,SUSPENDED}"
+    ],
+    "CronJobStatus": [
+      "{IDLE,RUNNING,COMPLETED,FAILED,DISABLED}"
+    ],
+    "EarningType": [
+      "{DIRECT_REFERRAL,LEVEL_INCOME,REFERRAL,ROI,DIRECT,BONUS}"
+    ],
+    "KYCStatus": [
+      "{PENDING,SUBMITTED,APPROVED,REJECTED,RESUBMIT}"
+    ],
+    "Network": [
+      "{BEP20,TRC20,ERC20,POLYGON,MANUAL}"
+    ],
+    "NotificationType": [
+      "{INFO,SUCCESS,WARNING,ERROR,PAYMENT,WITHDRAWAL,REFERRAL,ROI,KYC,SECURITY}"
+    ],
+    "PackageStatus": [
+      "{PENDING,ACTIVE,EXPIRED,WITHDRAWN,CANCELLED,COMPLETED}"
+    ],
+    "PackageType": [
+      "{NEO,NEURAL,ORACLE}"
+    ],
+    "PaymentStatus": [
+      "{PENDING,CONFIRMING,COMPLETED,FAILED,EXPIRED,CANCELLED}"
+    ],
+    "RoiPaymentStatus": [
+      "{PENDING,PROCESSING,COMPLETED,FAILED,SKIPPED}"
+    ],
+    "SessionStatus": [
+      "{ACTIVE,EXPIRED,REVOKED,INVALID}"
+    ],
+    "TicketPriority": [
+      "{LOW,MEDIUM,HIGH,URGENT,CRITICAL}"
+    ],
+    "TicketStatus": [
+      "{OPEN,IN_PROGRESS,WAITING_USER,WAITING_ADMIN,RESOLVED,CLOSED,REOPENED}"
+    ],
+    "TransactionStatus": [
+      "{PENDING,CONFIRMING,COMPLETED,FAILED,REJECTED}"
+    ],
+    "TransactionType": [
+      "{DEPOSIT,WITHDRAWAL,BOT_FEE,BOT_ACTIVATION,ROI_PAYMENT,REFERRAL_BONUS,LEVEL_INCOME,CAPITAL_RETURN,PACKAGE_PURCHASE,ADMIN_CREDIT,ADMIN_DEBIT}"
+    ],
+    "UserRole": [
+      "{USER,ADMIN,SUPER_ADMIN}"
+    ],
+    "WithdrawalStatus": [
+      "{PENDING,APPROVED,PROCESSING,COMPLETED,REJECTED,CANCELLED}"
+    ],
+    "WithdrawalType": [
+      "{ROI_ONLY,CAPITAL,CAPITAL_ONLY,FULL_AMOUNT}"
+    ]
+  },
+  "botTriggers": [
+    {
+      "name": "botactivation_assign_referral_code",
+      "table": "BotActivation",
+      "function": "assign_unique_referral_code_after_bot_purchase"
+    },
+    {
+      "name": "botactivation_update_user_status",
+      "table": "BotActivation",
+      "function": "update_user_bot_purchase_status"
+    },
+    {
+      "name": "update_botactivation_updated_at",
+      "table": "BotActivation",
+      "function": "update_updated_at_column"
+    }
+  ]
+}

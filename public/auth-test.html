@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication System Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0f0f0f;
+            color: #fff;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1a1a1a;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .pass { background: #2d5a2d; color: #90ee90; }
+        .fail { background: #5a2d2d; color: #ff9090; }
+        .warn { background: #5a5a2d; color: #ffff90; }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #00cc00;
+        }
+        .token-display {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .loading {
+            color: #ffff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 Authentication System Test Dashboard</h1>
+    <p>This test validates all JWT/session authentication functionality and ensures no 401 errors occur.</p>
+
+    <div class="test-section">
+        <h2>📍 Authentication API Tests</h2>
+        <button onclick="testValidationWithoutToken()">Test: No Token Validation</button>
+        <button onclick="testValidationWithInvalidToken()">Test: Invalid Token</button>
+        <div id="api-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔐 Admin Authentication</h2>
+        <input type="email" id="admin-email" placeholder="Admin Email" value="admin@test.com" style="margin: 5px; padding: 8px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px;">
+        <input type="password" id="admin-password" placeholder="Admin Password" value="admin123" style="margin: 5px; padding: 8px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px;">
+        <br>
+        <button onclick="testAdminLogin()">Test Admin Login</button>
+        <button onclick="testTokenValidation()" id="validate-btn" disabled>Validate Token</button>
+        <div id="admin-token" class="token-display" style="display: none;"></div>
+        <div id="admin-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>⚡ Admin Endpoints</h2>
+        <button onclick="testAdminStats()" id="stats-btn" disabled>Test /api/admin/stats</button>
+        <button onclick="testAdminUsers()" id="users-btn" disabled>Test /api/admin/users</button>
+        <button onclick="testAdminTransactions()" id="transactions-btn" disabled>Test /api/admin/transactions</button>
+        <div id="endpoints-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🍪 Token Persistence Tests</h2>
+        <button onclick="testCookieAuth()" id="cookie-btn" disabled>Test Cookie Authentication</button>
+        <button onclick="testBodyAuth()" id="body-btn" disabled>Test Body Token Authentication</button>
+        <button onclick="testMultipleValidations()" id="multiple-btn" disabled>Test Multiple Validations</button>
+        <div id="persistence-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Test Summary</h2>
+        <div id="summary"></div>
+        <button onclick="runAllTests()">🚀 Run All Tests</button>
+        <button onclick="clearResults()">🧹 Clear Results</button>
+    </div>
+
+    <script>
+        let adminToken = null;
+        let testResults = [];
+
+        function addResult(section, test, status, message) {
+            const result = { section, test, status, message, timestamp: new Date().toISOString() };
+            testResults.push(result);
+            
+            const resultElement = document.createElement('div');
+            resultElement.className = `test-result ${status.toLowerCase()}`;
+            
+            const icon = status === 'PASS' ? '✅' : status === 'FAIL' ? '❌' : '⚠️';
+            resultElement.innerHTML = `${icon} <strong>${test}:</strong> ${message}`;
+            
+            document.getElementById(section + '-results').appendChild(resultElement);
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const passed = testResults.filter(r => r.status === 'PASS').length;
+            const failed = testResults.filter(r => r.status === 'FAIL').length;
+            const warnings = testResults.filter(r => r.status === 'WARN').length;
+            
+            const summaryHTML = `
+                <div style="display: flex; gap: 20px; justify-content: space-around; text-align: center;">
+                    <div><strong style="color: #90ee90;">✅ Passed:</strong> ${passed}</div>
+                    <div><strong style="color: #ff9090;">❌ Failed:</strong> ${failed}</div>
+                    <div><strong style="color: #ffff90;">⚠️ Warnings:</strong> ${warnings}</div>
+                    <div><strong>📝 Total:</strong> ${testResults.length}</div>
+                </div>
+                ${failed === 0 && testResults.length > 0 ? 
+                  '<div style="margin-top: 20px; padding: 20px; background: #2d5a2d; border-radius: 4px; text-align: center;"><strong>🎉 ALL TESTS PASSED!</strong><br>✨ JWT/Session authentication system is working correctly<br>🚫 No 401 authentication errors detected</div>' : 
+                  ''}
+            `;
+            document.getElementById('summary').innerHTML = summaryHTML;
+        }
+
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json().catch(() => ({}));
+                return { status: response.status, ok: response.ok, data };
+            } catch (error) {
+                throw new Error(`Request failed: ${error.message}`);
+            }
+        }
+
+        async function testValidationWithoutToken() {
+            try {
+                const response = await makeRequest('/api/auth/validate', { method: 'POST' });
+                if (response.status === 401) {
+                    addResult('api', 'No Token Validation', 'PASS', 'Correctly rejected request without token (401)');
+                } else {
+                    addResult('api', 'No Token Validation', 'FAIL', `Expected 401, got ${response.status}`);
+                }
+            } catch (error) {
+                addResult('api', 'No Token Validation', 'FAIL', error.message);
+            }
+        }
+
+        async function testValidationWithInvalidToken() {
+            try {
+                const response = await makeRequest('/api/auth/validate', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer invalid-token' }
+                });
+                if (response.status === 401) {
+                    addResult('api', 'Invalid Token Validation', 'PASS', 'Correctly rejected invalid token (401)');
+                } else {
+                    addResult('api', 'Invalid Token Validation', 'FAIL', `Expected 401, got ${response.status}`);
+                }
+            } catch (error) {
+                addResult('api', 'Invalid Token Validation', 'FAIL', error.message);
+            }
+        }
+
+        async function testAdminLogin() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            
+            try {
+                const response = await makeRequest('/api/auth/admin/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok && response.data.token) {
+                    adminToken = response.data.token;
+                    document.getElementById('admin-token').innerHTML = `Token: ${adminToken.substring(0, 50)}...`;
+                    document.getElementById('admin-token').style.display = 'block';
+                    
+                    // Enable other test buttons
+                    ['validate-btn', 'stats-btn', 'users-btn', 'transactions-btn', 'cookie-btn', 'body-btn', 'multiple-btn'].forEach(id => {
+                        document.getElementById(id).disabled = false;
+                    });
+                    
+                    addResult('admin', 'Admin Login', 'PASS', 'Admin login successful');
+                } else {
+                    addResult('admin', 'Admin Login', 'FAIL', `Login failed: ${response.status} - ${JSON.stringify(response.data)}`);
+                }
+            } catch (error) {
+                addResult('admin', 'Admin Login', 'FAIL', error.message);
+            }
+        }
+
+        async function testTokenValidation() {
+            if (!adminToken) {
+                addResult('admin', 'Token Validation', 'FAIL', 'No admin token available');
+                return;
+            }
+
+            try {
+                const response = await makeRequest('/api/auth/validate', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+
+                if (response.ok) {
+                    addResult('admin', 'Token Validation', 'PASS', 'Admin token validated successfully (200)');
+                } else {
+                    addResult('admin', 'Token Validation', 'FAIL', `Token validation failed: ${response.status}`);
+                }
+            } catch (error) {
+                addResult('admin', 'Token Validation', 'FAIL', error.message);
+            }
+        }
+
+        async function testAdminStats() {
+            await testAdminEndpoint('/api/admin/stats', 'Admin Stats');
+        }
+
+        async function testAdminUsers() {
+            await testAdminEndpoint('/api/admin/users', 'Admin Users');
+        }
+
+        async function testAdminTransactions() {
+            await testAdminEndpoint('/api/admin/transactions', 'Admin Transactions');
+        }
+
+        async function testAdminEndpoint(endpoint, name) {
+            if (!adminToken) {
+                addResult('endpoints', name, 'FAIL', 'No admin token available');
+                return;
+            }
+
+            try {
+                const response = await makeRequest(endpoint, {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+
+                if (response.ok) {
+                    addResult('endpoints', name, 'PASS', `Endpoint accessible (${response.status})`);
+                } else if (response.status === 401) {
+                    addResult('endpoints', name, 'FAIL', 'Unexpected 401 - authentication should work');
+                } else {
+                    addResult('endpoints', name, 'WARN', `Endpoint returned ${response.status}`);
+                }
+            } catch (error) {
+                addResult('endpoints', name, 'FAIL', error.message);
+            }
+        }
+
+        async function testCookieAuth() {
+            if (!adminToken) {
+                addResult('persistence', 'Cookie Authentication', 'FAIL', 'No admin token available');
+                return;
+            }
+
+            try {
+                const response = await makeRequest('/api/auth/validate', {
+                    method: 'POST',
+                    headers: { 'Cookie': `token=${adminToken}` }
+                });
+
+                if (response.ok) {
+                    addResult('persistence', 'Cookie Authentication', 'PASS', 'Cookie authentication works (200)');
+                } else {
+                    addResult('persistence', 'Cookie Authentication', 'FAIL', `Cookie authentication failed: ${response.status}`);
+                }
+            } catch (error) {
+                addResult('persistence', 'Cookie Authentication', 'FAIL', error.message);
+            }
+        }
+
+        async function testBodyAuth() {
+            if (!adminToken) {
+                addResult('persistence', 'Body Token Authentication', 'FAIL', 'No admin token available');
+                return;
+            }
+
+            try {
+                const response = await makeRequest('/api/auth/validate', {
+                    method: 'POST',
+                    body: JSON.stringify({ token: adminToken })
+                });
+
+                if (response.ok) {
+                    addResult('persistence', 'Body Token Authentication', 'PASS', 'Body token authentication works (200)');
+                } else {
+                    addResult('persistence', 'Body Token Authentication', 'FAIL', `Body token authentication failed: ${response.status}`);
+                }
+            } catch (error) {
+                addResult('persistence', 'Body Token Authentication', 'FAIL', error.message);
+            }
+        }
+
+        async function testMultipleValidations() {
+            if (!adminToken) {
+                addResult('persistence', 'Token Persistence', 'FAIL', 'No admin token available');
+                return;
+            }
+
+            try {
+                let allPassed = true;
+                for (let i = 0; i < 3; i++) {
+                    const response = await makeRequest('/api/auth/validate', {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${adminToken}` }
+                    });
+
+                    if (!response.ok) {
+                        allPassed = false;
+                        break;
+                    }
+                }
+
+                if (allPassed) {
+                    addResult('persistence', 'Token Persistence', 'PASS', 'Token remains valid across multiple requests');
+                } else {
+                    addResult('persistence', 'Token Persistence', 'FAIL', 'Token validation failed on persistence test');
+                }
+            } catch (error) {
+                addResult('persistence', 'Token Persistence', 'FAIL', error.message);
+            }
+        }
+
+        async function runAllTests() {
+            clearResults();
+            
+            addResult('summary', 'Test Start', 'PASS', 'Starting comprehensive authentication tests...');
+            
+            await testValidationWithoutToken();
+            await testValidationWithInvalidToken();
+            await testAdminLogin();
+            
+            if (adminToken) {
+                await testTokenValidation();
+                await testAdminStats();
+                await testAdminUsers();
+                await testAdminTransactions();
+                await testCookieAuth();
+                await testBodyAuth();
+                await testMultipleValidations();
+            }
+        }
+
+        function clearResults() {
+            testResults = [];
+            ['api-results', 'admin-results', 'endpoints-results', 'persistence-results'].forEach(id => {
+                document.getElementById(id).innerHTML = '';
+            });
+            updateSummary();
+        }
+
+        // Initialize
+        updateSummary();
+    </script>
+</body>
+</html>

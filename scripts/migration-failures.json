@@ -1,0 +1,459 @@
+{
+  "failures": [
+    {
+      "file": "01_enums.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n\nDO $$ BEGIN\n  CREATE TYPE \"UserRole\" AS ENUM ('USER', 'ADMIN', 'SUPER_ADMIN');\nEXCEPTION\n  WHEN duplicate_object THEN null;\nEND $$;\n\nDO $$ BEGIN\n  CREATE TYPE \"PackageType\" AS ENUM ('NEO', 'NEURAL', 'ORACLE');\nEXCEPTION\n  WHEN duplicate_object THEN null;\nEND $$;\n\nDO $$ BEGIN\n  CREATE TYPE \"PackageStatus\" AS ENUM (\n    'PENDING',      -- Payment pending\n    'ACTIVE',       -- Active and earning ROI\n    'EXPIRED',      -- 12 months completed\n    'WITHDRAWN',    -- Capital withdrawn\n    'CANCELLED',    -- Cancelled by admin\n    'COMPLETED'     -- Fully completed\n      );\nEXCEPTION\n  WHEN duplicate_object THEN null;\nEND $$;\n;\n\n-- Transaction types (comprehensive list from all 94 API endpoints)\nDO $$ BEGIN\n  CREATE",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 2,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_referralCode\" ON \"User\"(\"referralCode\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 3,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_referredBy\" ON \"User\"(\"referredBy\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 4,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_isActive\" ON \"User\"(\"isActive\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 5,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_isBlocked\" ON \"User\"(\"isBlocked\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 6,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_role\" ON \"User\"(\"role\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 7,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_kycStatus\" ON \"User\"(\"kycStatus\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 8,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_createdAt\" ON \"User\"(\"createdAt\" DESC);",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 9,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_user_lastLogin\" ON \"User\"(\"lastLogin\" DESC);",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 10,
+      "statement": "-- ----------------------------------------------------------------------------\n-- ReferralCounter - Auto-incrementing referral codes\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"ReferralCounter\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \"counterType\" TEXT NOT NULL UNIQUE,\n  \"currentValue\" INTEGER NOT NULL DEFAULT 1000,\n  \"prefix\" TEXT DEFAULT 'NSCREF',\n  \"updatedAt\" TIMESTAMP NOT NULL DEFAULT NOW()\n);",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 11,
+      "statement": "INSERT INTO \"ReferralCounter\" (\"id\", \"counterType\", \"currentValue\", \"prefix\")\nVALUES (gen_random_uuid()::text, 'NSCREF', 1000, 'NSCREF')\nON CONFLICT (\"counterType\") DO NOTHING;",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 12,
+      "statement": "-- ----------------------------------------------------------------------------\n-- Package Table - User investment packages\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"Package\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \"userId\" TEXT NOT NULL REFERENCES \"User\"(\"id\") ON DELETE CASCADE,\n  \n  -- Package details\n  \"amount\" DECIMAL(20, 8) NOT NULL,\n  \"packageType\" \"PackageType\" NOT NULL,\n  \"roiPercentage\" DECIMAL(5, 2) NOT NULL,\n  \"status\" \"PackageStatus\" NOT NULL DEFAULT 'PENDING',\n  \"network\" \"Network\",\n  \n  -- Payment tracking\n  \"depositTxHash\" TEXT,\n  \"paymentRequestId\" TEXT,\n  \n  -- Date tracking\n  \"investmentDate\" TIMESTAMP,\n  \"purchaseDate\" TIMESTAMP,\n  \"activatedAt\" TIMESTAMP,\n  \"expiryDate\" TIMESTAMP,\n  \"",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 13,
+      "statement": "-- Package indexes\nCREATE INDEX IF NOT EXISTS \"idx_package_userId\" ON \"Package\"(\"userId\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 14,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_status\" ON \"Package\"(\"status\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 15,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_packageType\" ON \"Package\"(\"packageType\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 16,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_nextRoiDate\" ON \"Package\"(\"nextRoiDate\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 17,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_expiryDate\" ON \"Package\"(\"expiryDate\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 18,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_isExpired\" ON \"Package\"(\"isExpired\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 19,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_investmentDate\" ON \"Package\"(\"investmentDate\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 20,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_package_createdAt\" ON \"Package\"(\"createdAt\" DESC);",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 21,
+      "statement": "-- ----------------------------------------------------------------------------\n-- BotActivation Table - Bot activations\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"BotActivation\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \"userId\" TEXT NOT NULL REFERENCES \"User\"(\"id\") ON DELETE CASCADE,\n  \"packageId\" TEXT REFERENCES \"Package\"(\"id\") ON DELETE SET NULL,\n  \n  -- Bot details\n  \"botType\" \"PackageType\" NOT NULL,\n  \"activationFee\" DECIMAL(20, 8) NOT NULL,\n  \"status\" \"BotStatus\" NOT NULL DEFAULT 'ACTIVE',\n  \"network\" \"Network\",\n  \n  -- Payment tracking\n  \"paymentTxHash\" TEXT,\n  \"paymentRequestId\" TEXT,\n  \n  -- Date tracking (CRITICAL: code uses both)\n  \"activationDate\" TIMESTAMP,\n  \"activatedAt\" TIMESTAMP,\n  \"expiry",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 22,
+      "statement": "-- BotActivation indexes\nCREATE INDEX IF NOT EXISTS \"idx_botactivation_userId\" ON \"BotActivation\"(\"userId\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 23,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_packageId\" ON \"BotActivation\"(\"packageId\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 24,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_status\" ON \"BotActivation\"(\"status\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 25,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_botType\" ON \"BotActivation\"(\"botType\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 26,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_isExpired\" ON \"BotActivation\"(\"isExpired\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 27,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_expiryDate\" ON \"BotActivation\"(\"expiryDate\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 28,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_botactivation_activationDate\" ON \"BotActivation\"(\"activationDate\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 29,
+      "statement": "-- ----------------------------------------------------------------------------\n-- KYCSubmission Table - KYC verification submissions\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"KYCSubmission\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \"userId\" TEXT NOT NULL REFERENCES \"User\"(\"id\") ON DELETE CASCADE,\n  \n  -- Status\n  \"status\" \"KYCStatus\" NOT NULL DEFAULT 'PENDING',\n  \n  -- Document details\n  \"documentType\" TEXT NOT NULL,\n  \"documentNumber\" TEXT,\n  \"documentFrontUrl\" TEXT,\n  \"frontImageUrl\" TEXT,\n  \"documentBackUrl\" TEXT,\n  \"backImageUrl\" TEXT,\n  \"selfieUrl\" TEXT,\n  \"proofOfAddressUrl\" TEXT,\n  \n  -- Personal details\n  \"firstName\" TEXT,\n  \"lastName\" TEXT,\n  \"middleName\" TEXT,\n  \"dateOfBirth\" DATE,\n  \"nationalit",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 30,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_kycsubmission_userId\" ON \"KYCSubmission\"(\"userId\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 31,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_kycsubmission_status\" ON \"KYCSubmission\"(\"status\");",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 1,
+      "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+      "error": "syntax error at or near \"CREATE\"",
+      "code": "42601"
+    },
+    {
+      "file": "02_core_tables.sql",
+      "statementIndex": 32,
+      "statement": "CREATE INDEX IF NOT EXISTS \"idx_kycsubmission_submittedAt\" ON \"KYCSubmission\"(\"submittedAt\" DESC);",
+      "error": "current transaction is aborted, commands ignored until end of transaction block",
+      "code": "25P02"
+    }
+  ],
+  "rootCause": {
+    "file": "02_core_tables.sql",
+    "statementIndex": 1,
+    "statement": "-- ============================================================================\n-- CORE TABLES - Main application entities\n-- ============================================================================\n\n-- ----------------------------------------------------------------------------\n-- User Table - Main user entity (supports all auth & profile APIs)\n-- ----------------------------------------------------------------------------\nCREATE TABLE IF NOT EXISTS \"User\" (\n  \"id\" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,\n  \n  -- Authentication\n  \"email\" TEXT NOT NULL UNIQUE,\n  \"password\" TEXT NOT NULL,\n  \"username\" TEXT UNIQUE,\n  \"fullName\" TEXT,\n  \"phone\" TEXT,\n  \n  -- Referral system\n  \"referralCode\" TEXT NOT NULL UNIQUE,\n  \"referredBy\" TEXT, -- Stores referralCode of referrer\n  \"referrerI",
+    "error": "syntax error at or near \"CREATE\"",
+    "code": "42601"
+  }
+}

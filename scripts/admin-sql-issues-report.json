@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-11-14T08:51:33.606Z",
+  "totalIssues": 1,
+  "highPriority": 1,
+  "mediumPriority": 0,
+  "issues": [
+    {
+      "file": "app\\api\\admin\\users\\route.ts",
+      "type": "NONEXISTENT_FIELD",
+      "table": "Package",
+      "field": "isActive",
+      "severity": "HIGH",
+      "fix": "Field \"isActive\" doesn't exist in Package table. Check database schema."
+    }
+  ]
+}

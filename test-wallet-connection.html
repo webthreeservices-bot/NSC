@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .status.success {
+            background: #1b5e20;
+            color: #a5d6a7;
+        }
+        .status.error {
+            background: #b71c1c;
+            color: #ef9a9a;
+        }
+        .status.info {
+            background: #01579b;
+            color: #81d4fa;
+        }
+        .code {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Wallet Connection Test</h1>
+
+        <!-- MetaMask Section -->
+        <div class="section">
+            <h2>🦊 MetaMask (BEP20)</h2>
+            <p>Test MetaMask extension connection</p>
+            <button onclick="checkMetaMask()">Check MetaMask</button>
+            <button onclick="connectMetaMask()">Connect MetaMask</button>
+            <div id="metamask-status"></div>
+        </div>
+
+        <!-- TronLink Section -->
+        <div class="section">
+            <h2>🔴 TronLink (TRC20)</h2>
+            <p>Test TronLink extension connection</p>
+            <button onclick="checkTronLink()">Check TronLink</button>
+            <button onclick="connectTronLink()">Connect TronLink</button>
+            <div id="tronlink-status"></div>
+        </div>
+
+        <!-- Console Section -->
+        <div class="section">
+            <h2>📋 Console Log</h2>
+            <div id="console" class="code"></div>
+        </div>
+    </div>
+
+    <script>
+        // Respect a query param 'web3_disabled=1' to disable wallet-related checks
+        const WEB3_DISABLED = new URLSearchParams(window.location.search).get('web3_disabled') === '1';
+        if (WEB3_DISABLED) {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('button').forEach(b => b.disabled = true);
+                const cm = document.getElementById('console');
+                if (cm) cm.innerHTML = '<div style="color:#fff">WEB3_DISABLED is enabled: wallet checks are disabled in this test page.</div>';
+            });
+        }
+        // Console logging
+        function log(message, type = 'info') {
+            const consoleDiv = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            consoleDiv.innerHTML += `<div style="color: ${type === 'error' ? '#f44336' : type === 'success' ? '#4CAF50' : '#fff'}">[${timestamp}] ${message}</div>`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function setStatus(elementId, message, type) {
+            const statusDiv = document.getElementById(elementId);
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        // MetaMask Functions
+        async function checkMetaMask() {
+            // Allow skipping web3 checks via query param web3_disabled=1 or localStorage key
+            const params = new URLSearchParams(window.location.search);
+            const web3Disabled = params.get('web3_disabled') === '1' || window.localStorage.getItem('WEB3_DISABLED') === 'true';
+            if (web3Disabled) {
+                setStatus('metamask-status', '⚠️ Web3 disabled - skipping MetaMask checks', 'info');
+                return;
+            }
+            log('Checking for MetaMask...');
+
+            if (typeof window.ethereum === 'undefined') {
+                setStatus('metamask-status', '❌ MetaMask not detected. Please install MetaMask extension.', 'error');
+                log('MetaMask not found', 'error');
+                return;
+            }
+
+            if (window.ethereum.isMetaMask) {
+                setStatus('metamask-status', '✅ MetaMask detected!', 'success');
+                log('MetaMask is installed', 'success');
+
+                // Check if already connected
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts && accounts.length > 0) {
+                        log(`Already connected: ${accounts[0]}`, 'success');
+                        setStatus('metamask-status', `✅ Connected: ${accounts[0].substring(0, 10)}...${accounts[0].slice(-4)}`, 'success');
+                    }
+                } catch (err) {
+                    log(`Error checking accounts: ${err.message}`, 'error');
+                }
+            } else {
+                setStatus('metamask-status', '⚠️ Ethereum provider detected but it\'s not MetaMask', 'info');
+                log('Non-MetaMask provider detected');
+            }
+        }
+
+        async function connectMetaMask() {
+            log('Attempting to connect to MetaMask...');
+
+            if (typeof window.ethereum === 'undefined') {
+                setStatus('metamask-status', '❌ MetaMask not installed', 'error');
+                log('MetaMask not found', 'error');
+                return;
+            }
+
+            try {
+                log('Calling eth_requestAccounts...');
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+
+                log(`Connected successfully: ${accounts[0]}`, 'success');
+                setStatus('metamask-status', `✅ Connected: ${accounts[0].substring(0, 10)}...${accounts[0].slice(-4)}`, 'success');
+
+                // Get chain ID
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                log(`Chain ID: ${chainId}`);
+
+            } catch (error) {
+                log(`Connection failed: ${error.message}`, 'error');
+                setStatus('metamask-status', `❌ Error: ${error.message}`, 'error');
+
+                if (error.code === 4001) {
+                    log('User rejected the request', 'error');
+                } else if (error.code === -32002) {
+                    log('Request already pending - check MetaMask extension', 'error');
+                }
+            }
+        }
+
+        // TronLink Functions
+        async function checkTronLink() {
+            const params = new URLSearchParams(window.location.search);
+            const web3Disabled = params.get('web3_disabled') === '1' || window.localStorage.getItem('WEB3_DISABLED') === 'true';
+            if (web3Disabled) {
+                setStatus('tronlink-status', '⚠️ Web3 disabled - skipping TronLink checks', 'info');
+                return;
+            }
+            log('Checking for TronLink...');
+
+            // Wait for TronLink to inject
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            if (typeof window.tronWeb === 'undefined') {
+                setStatus('tronlink-status', '❌ TronLink not detected. Please install TronLink extension.', 'error');
+                log('TronLink not found', 'error');
+                return;
+            }
+
+            setStatus('tronlink-status', '✅ TronLink detected!', 'success');
+            log('TronLink is installed', 'success');
+
+            if (window.tronWeb.ready) {
+                const address = window.tronWeb.defaultAddress?.base58;
+                if (address) {
+                    log(`TronLink ready with address: ${address}`, 'success');
+                    setStatus('tronlink-status', `✅ Ready: ${address.substring(0, 10)}...${address.slice(-4)}`, 'success');
+                } else {
+                    log('TronLink ready but no address found', 'error');
+                }
+            } else {
+                log('TronLink not ready (locked or not logged in)');
+                setStatus('tronlink-status', '⚠️ TronLink detected but not ready (unlock your wallet)', 'info');
+            }
+
+            // Check for new API
+            if (window.tronLink) {
+                log('TronLink new API (tronLink object) detected', 'success');
+            } else {
+                log('TronLink new API not available (old version?)');
+            }
+        }
+
+        async function connectTronLink() {
+            const params = new URLSearchParams(window.location.search);
+            const web3Disabled = params.get('web3_disabled') === '1' || window.localStorage.getItem('WEB3_DISABLED') === 'true';
+            if (web3Disabled) {
+                setStatus('tronlink-status', '⚠️ Web3 disabled - connect disabled', 'info');
+                return;
+            }
+            log('Attempting to connect to TronLink...');
+
+            // Wait for TronLink to inject
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            if (typeof window.tronWeb === 'undefined') {
+                setStatus('tronlink-status', '❌ TronLink not installed', 'error');
+                log('TronLink not found', 'error');
+                return;
+            }
+
+            try {
+                // Try new API first
+                if (window.tronLink && typeof window.tronLink.request === 'function') {
+                    log('Using TronLink new API (tronLink.request)...');
+
+                    const response = await window.tronLink.request({
+                        method: 'tron_requestAccounts'
+                    });
+
+                    log(`TronLink response: ${JSON.stringify(response)}`);
+
+                    if (response && response.code === 200) {
+                        const address = window.tronWeb?.defaultAddress?.base58;
+                        if (address) {
+                            log(`Connected successfully: ${address}`, 'success');
+                            setStatus('tronlink-status', `✅ Connected: ${address.substring(0, 10)}...${address.slice(-4)}`, 'success');
+                        } else {
+                            log('Connection succeeded but no address found', 'error');
+                            setStatus('tronlink-status', '⚠️ Connected but no address', 'info');
+                        }
+                    } else if (response && response.code === 4001) {
+                        log('User rejected the request', 'error');
+                        setStatus('tronlink-status', '❌ User rejected connection', 'error');
+                    } else {
+                        log(`Unknown response code: ${response?.code}`, 'error');
+                        setStatus('tronlink-status', `⚠️ Unknown response: ${JSON.stringify(response)}`, 'info');
+                    }
+                } else {
+                    // Fallback to old API
+                    log('Using TronLink old API (tronWeb)...');
+
+                    if (window.tronWeb.ready) {
+                        const address = window.tronWeb.defaultAddress?.base58;
+                        if (address) {
+                            log(`Already connected: ${address}`, 'success');
+                            setStatus('tronlink-status', `✅ Connected: ${address.substring(0, 10)}...${address.slice(-4)}`, 'success');
+                        } else {
+                            log('TronWeb ready but no address', 'error');
+                            setStatus('tronlink-status', '❌ No address found', 'error');
+                        }
+                    } else {
+                        log('TronLink not ready - please unlock your wallet', 'error');
+                        setStatus('tronlink-status', '❌ TronLink locked - please unlock and refresh', 'error');
+                    }
+                }
+            } catch (error) {
+                log(`Connection failed: ${error.message}`, 'error');
+                setStatus('tronlink-status', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-check on load
+        window.addEventListener('load', async () => {
+            log('Page loaded, checking wallets...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            checkMetaMask();
+            checkTronLink();
+        });
+    </script>
+</body>
+</html>
