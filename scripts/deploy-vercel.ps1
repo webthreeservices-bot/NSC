@@ -11,7 +11,8 @@
 #>
 
 param(
-    [switch]$Prod
+    [switch]$Prod,
+    [switch]$SkipLocalBuild
 )
 
 if (-not (Get-Command vercel -ErrorAction SilentlyContinue)) {
@@ -19,9 +20,13 @@ if (-not (Get-Command vercel -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
-Write-Host "Building Next.js app..."
-npm run build
-if ($LASTEXITCODE -ne 0) { Write-Error "Build failed"; exit $LASTEXITCODE }
+if (-not $SkipLocalBuild) {
+    Write-Host "Building Next.js app locally..."
+    npm run build
+    if ($LASTEXITCODE -ne 0) { Write-Error "Build failed"; exit $LASTEXITCODE }
+} else {
+    Write-Host "Skipping local build; remote build will run on Vercel (ensure env vars are configured)."
+}
 
 if ($Prod) {
     Write-Host "Deploying to Vercel (production)..."
