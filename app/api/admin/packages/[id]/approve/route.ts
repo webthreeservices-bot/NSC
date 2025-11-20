@@ -76,18 +76,28 @@ export async function POST(
         SET
           status = 'ACTIVE'::"PackageStatus",
           "depositTxHash" = $1,
-          "activatedAt" = $2,
-          "approvedBy" = $3,
-          "approvedAt" = $4,
-          "updatedAt" = $5,
+          "activatedAt" = $2::timestamptz,
+          "approvedBy" = $3::uuid,
+          "approvedAt" = $4::timestamptz,
+          "updatedAt" = $5::timestamptz,
           "nextRoiDate" = CASE 
-            WHEN "packageType" IN ('TEST_1', 'TEST_2', 'TEST_3') THEN $2 + INTERVAL '15 minutes'
+            WHEN "packageType" IN ('TEST_1', 'TEST_2', 'TEST_3') THEN ($2::timestamptz + INTERVAL '15 minutes')
             ELSE $2 + INTERVAL '30 days'
           END
         WHERE id = $6
       `
 
-      await client.query(updatePackageQuery, [
+      const updateParams = [
+        pkg.depositTxHash || 'ADMIN_APPROVED',
+        new Date(),
+        user.userId,
+        new Date(),
+        new Date(),
+        packageId
+      ]
+      console.log('[Admin] updatePackageQuery params:', updateParams)
+
+      await client.query(updatePackageQuery, updateParams)
         pkg.depositTxHash || 'ADMIN_APPROVED',
         new Date(),
         user.userId,
@@ -104,14 +114,31 @@ export async function POST(
         INSERT INTO "Transaction" (
           id, "userId", type, amount, "txHash", network,
           status, description, "referenceId", "referenceType", "createdAt", "updatedAt"
-        ) VALUES ($1, $2, $3::"TransactionType", $4, $5, $6::"Network", $7::"TransactionStatus", $8, $9, $10, $11, $12)
+        ) VALUES ($1, $2::uuid, $3::"TransactionType", $4::numeric, $5, $6::"Network", $7::"TransactionStatus", $8, $9, $10, $11::timestamptz, $12::timestamptz)
       `
 
-      await client.query(createTransactionQuery, [
+      const createTxParams = [
         transactionId,
         pkg.userId,
         'PACKAGE_PURCHASE',
-        pkg.amount,
+        Number(pkg.amount),
+        pkg.depositTxHash || 'ADMIN_APPROVED',
+        pkg.network || 'MANUAL',
+        'COMPLETED',
+        'Package approved by admin',
+        packageId,
+        'PACKAGE',
+        now,
+        now
+      ]
+
+      console.log('[Admin] createTransactionQuery params:', createTxParams)
+
+      await client.query(createTransactionQuery, createTxParams)
+        transactionId,
+        pkg.userId,
+        'PACKAGE_PURCHASE',
+        Number(pkg.amount),
         pkg.depositTxHash || 'ADMIN_APPROVED',
         pkg.network || 'MANUAL',
         'COMPLETED',
