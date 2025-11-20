@@ -1,0 +1,260 @@
+npm run build                                                          
+
+> nsc-bot-platform@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+/*! 🌼 daisyUI 5.3.10 */
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data  ...🔥 Initializing database connection pool...
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+   Collecting page data  .🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+CRITICAL: PAYMENT_WEBHOOK_SECRET environment variable is not set!
+Webhook endpoint will reject all requests until configured.
+ ✓ Collecting page data    
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+   Generating static pages (35/90)  [==  ]🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+   Generating static pages (44/90)  [=== ]🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+🔥 Initializing database connection pool...
+🔥 Warming up database connection pool...
+🚀 Database pool initialized for NeonDB
+(node:7004) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7468) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21424) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17204) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17456) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15352) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5848) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9752) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19844) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18784) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+   Generating static pages (57/90)  [ ===](node:5520) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+✅ New client connected to NeonDB
+✅ Database health check passed
+✅ Database pool warmed up
+✅ Database connection pool ready
+   Generating static pages (76/90)  [  ==]🚀 Initializing essential cron jobs...
+⏰ Timezone: IST (UTC+5:30)
+
+✅ Essential cron jobs initialized successfully
+📅 Schedule:
+   - ROI Distribution: Daily at 05:30 IST
+   - Bot Expiry Check: Daily at 06:30 IST
+   - Package Expiry Check: Daily at 07:30 IST
+
+💡 Note: Database backups, health monitoring, and email digests
+   should be handled by managed services or admin dashboard.
+
+ ✓ Generating static pages (90/90)
+ ✓ Collecting build traces    
+ ✓ Finalizing page optimization
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    50.7 kB         145 kB
+├ ○ /_not-found                          880 B          88.8 kB
+├ ○ /admin/admin-login                   3.68 kB        96.6 kB
+├ ○ /admin/compliance                    3.44 kB         108 kB
+├ ○ /admin/dashboard                     6.38 kB         117 kB
+├ ○ /admin/packages                      3.75 kB         118 kB
+├ ○ /admin/settings                      2.24 kB         106 kB
+├ ○ /admin/statistics                    6.36 kB         117 kB
+├ ○ /admin/users                         3.57 kB         118 kB
+├ ○ /admin/withdrawals                   4.3 kB          118 kB
+├ ƒ /api/[...notfound]                   0 B                0 B
+├ ƒ /api/admin/bot-packages              0 B                0 B
+├ ƒ /api/admin/compliance/stats          0 B                0 B
+├ ƒ /api/admin/cron/expiration/trigger   0 B                0 B
+├ ƒ /api/admin/cron/roi/trigger          0 B                0 B
+├ ƒ /api/admin/cron/status               0 B                0 B
+├ ƒ /api/admin/financial-stats           0 B                0 B
+├ ƒ /api/admin/kyc                       0 B                0 B
+├ ƒ /api/admin/package-types             0 B                0 B
+├ ƒ /api/admin/payments/list             0 B                0 B
+├ ƒ /api/admin/payments/scan             0 B                0 B
+├ ƒ /api/admin/payments/stats            0 B                0 B
+├ ƒ /api/admin/statistics                0 B                0 B
+├ ƒ /api/admin/stats                     0 B                0 B
+├ ƒ /api/admin/system-settings           0 B                0 B
+├ ƒ /api/admin/users                     0 B                0 B
+├ ƒ /api/admin/users/[id]/block          0 B                0 B
+├ ƒ /api/admin/users/[id]/kyc            0 B                0 B
+├ ƒ /api/admin/wallet-address            0 B                0 B
+├ ƒ /api/admin/withdrawals               0 B                0 B
+├ ƒ /api/admin/withdrawals/[id]/approve  0 B                0 B
+├ ƒ /api/admin/withdrawals/[id]/reject   0 B                0 B
+├ ƒ /api/admin/withdrawals/pending       0 B                0 B
+├ ƒ /api/auth/csrf-token                 0 B                0 B
+├ ƒ /api/auth/disable-2fa                0 B                0 B
+├ ƒ /api/auth/enable-2fa                 0 B                0 B
+├ ƒ /api/auth/forgot-password            0 B                0 B
+├ ƒ /api/auth/login                      0 B                0 B
+├ ƒ /api/auth/logout                     0 B                0 B
+├ ƒ /api/auth/refresh                    0 B                0 B
+├ ƒ /api/auth/register                   0 B                0 B
+├ ƒ /api/auth/reset-password             0 B                0 B
+├ ƒ /api/auth/validate                   0 B                0 B
+├ ƒ /api/auth/verify-2fa                 0 B                0 B
+├ ƒ /api/auth/verify-email               0 B                0 B
+├ ƒ /api/bots/activate                   0 B                0 B
+├ ƒ /api/bots/activate-with-payment      0 B                0 B
+├ ƒ /api/bots/check-eligibility          0 B                0 B
+├ ƒ /api/bots/my-bots                    0 B                0 B
+├ ○ /api/cron/init                       0 B                0 B
+├ ƒ /api/earnings/history                0 B                0 B
+├ ƒ /api/earnings/summary                0 B                0 B
+├ ƒ /api/health                          0 B                0 B
+├ ○ /api/legal                           0 B                0 B
+├ ƒ /api/legal/accept                    0 B                0 B
+├ ƒ /api/packages                        0 B                0 B
+├ ƒ /api/packages/[id]                   0 B                0 B
+├ ƒ /api/packages/[id]/verify-deposit    0 B                0 B
+├ ƒ /api/packages/create                 0 B                0 B
+├ ƒ /api/packages/create-with-payment    0 B                0 B
+├ ƒ /api/packages/my-packages            0 B                0 B
+├ ƒ /api/packages/roi-schedule           0 B                0 B
+├ ƒ /api/packages/stats                  0 B                0 B
+├ ƒ /api/payments/[id]                   0 B                0 B
+├ ƒ /api/payments/[id]/qr                0 B                0 B
+├ ƒ /api/payments/[id]/verify            0 B                0 B
+├ ƒ /api/payments/create                 0 B                0 B
+├ ƒ /api/payments/my-requests            0 B                0 B
+├ ƒ /api/payments/status                 0 B                0 B
+├ ƒ /api/payments/webhook                0 B                0 B
+├ ƒ /api/referrals/direct                0 B                0 B
+├ ƒ /api/referrals/level-breakdown       0 B                0 B
+├ ƒ /api/referrals/stats                 0 B                0 B
+├ ƒ /api/referrals/tree                  0 B                0 B
+├ ƒ /api/support/ticket                  0 B                0 B
+├ ƒ /api/transactions/history            0 B                0 B
+├ ƒ /api/user/change-password            0 B                0 B
+├ ƒ /api/user/kyc                        0 B                0 B
+├ ƒ /api/user/kyc/submit                 0 B                0 B
+├ ƒ /api/user/profile                    0 B                0 B
+├ ƒ /api/user/referral-code              0 B                0 B
+├ ƒ /api/user/referrals                  0 B                0 B
+├ ƒ /api/withdrawals/check-eligibility   0 B                0 B
+├ ƒ /api/withdrawals/history             0 B                0 B
+├ ƒ /api/withdrawals/request             0 B                0 B
+├ ○ /bots                                5.91 kB         109 kB
+├ ○ /bots/activate                       2.66 kB         243 kB
+├ ○ /contact                             2.63 kB        99.3 kB
+├ ○ /cookie-policy                       2.86 kB        90.8 kB
+├ ○ /dashboard                           6.93 kB         110 kB
+├ ○ /earnings                            5.54 kB         109 kB
+├ ○ /forgot-password                     4.89 kB         108 kB
+├ ○ /kyc                                 6.48 kB         110 kB
+├ ○ /labs                                4.2 kB         98.9 kB
+├ ○ /login                               3.55 kB         105 kB
+├ ○ /network                             4.39 kB        99.1 kB
+├ ○ /packages                            5.62 kB         109 kB
+├ ƒ /packages/[id]                       5.68 kB         109 kB
+├ ○ /packages/buy                        1.99 kB         227 kB
+├ ○ /pricing                             4.89 kB        99.6 kB
+├ ○ /privacy                             152 B          88.1 kB
+├ ○ /privacy-policy                      3.16 kB        91.1 kB
+├ ○ /profile                             5.76 kB         110 kB
+├ ○ /referral-bonus                      6.09 kB         110 kB
+├ ○ /referrals                           4.12 kB        97.1 kB
+├ ○ /register                            3.85 kB         106 kB
+├ ○ /reset-password                      5.14 kB         109 kB
+├ ○ /roi                                 3 kB           90.9 kB
+├ ○ /security                            6.3 kB          110 kB
+├ ○ /support                             6.19 kB         110 kB
+├ ○ /team-performance                    2.57 kB        97.2 kB
+├ ○ /terms                               152 B          88.1 kB
+├ ○ /terms-of-service                    2.65 kB        90.6 kB
+├ ○ /test1                               48.5 kB         145 kB
+├ ○ /transactions                        4.94 kB         126 kB
+├ ○ /verify-email                        4.69 kB         108 kB
+├ ○ /withdrawals                         2.87 kB         110 kB
+└ ○ /withdrawals/request                 3.67 kB         137 kB
++ First Load JS shared by all            87.9 kB
+  ├ chunks/2117-a12d4fef26a095d9.js      31.9 kB
+  ├ chunks/fd9d1056-3aebcf55702994d2.js  53.6 kB
+  └ other shared chunks (total)          2.38 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+PS C:\Users\LENOVO\Desktop\our\nsc-bot-platform> 

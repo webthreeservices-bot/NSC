@@ -1,0 +1,3 @@
+This folder contains archived on-chain deployment scripts and tooling. The original `tron/` and `bsc/` folders in the project were retained but their npm scripts have been prefixed with `archived:` to prevent them from being run in normal builds.
+
+If you intend to fully remove on-chain support, delete the `tron/` and `bsc/` folders and the archived scripts. If you want to keep them for developer reasons, we recommend moving the scripts into this folder and documenting their usage here.

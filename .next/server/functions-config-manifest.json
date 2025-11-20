@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/admin/transactions/with-blockchain-cached": {},
+    "/api/admin/transactions/with-blockchain": {},
+    "/api/blockchain/transaction": {},
+    "/api/transactions/with-blockchain-cached": {},
+    "/api/transactions/with-blockchain": {}
+  }
+}

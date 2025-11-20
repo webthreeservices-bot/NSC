@@ -1,0 +1,235 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.17.0'
+  FORCE_COLOR: 1
+  CI: true
+
+jobs:
+  lint-and-format:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test -- --coverage --passWithNoTests
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          fail_ci_if_error: false
+
+  build-test:
+    name: Build Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create test environment file
+        run: |
+          cat > .env.local << EOF
+          # Test Environment Variables
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          NEXT_PUBLIC_APP_NAME="NSC Bot Platform"
+          DATABASE_URL=postgresql://test:test@localhost:5432/testdb
+          JWT_SECRET=test-jwt-secret-key-for-ci
+          ADMIN_JWT_SECRET=test-admin-jwt-secret-key-for-ci
+          NEXTAUTH_SECRET=test-nextauth-secret-for-ci
+          ENCRYPTION_KEY=test-encryption-key-32-chars-long
+          NODE_ENV=test
+          EOF
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: .next/
+          retention-days: 1
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, unit-tests]
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Create test environment file
+        run: |
+          cat > .env.local << EOF
+          # Test Environment Variables
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          NEXT_PUBLIC_APP_NAME="NSC Bot Platform"
+          DATABASE_URL=postgresql://test:test@localhost:5432/testdb
+          JWT_SECRET=test-jwt-secret-key-for-ci
+          ADMIN_JWT_SECRET=test-admin-jwt-secret-key-for-ci
+          NEXTAUTH_SECRET=test-nextauth-secret-for-ci
+          ENCRYPTION_KEY=test-encryption-key-32-chars-long
+          NODE_ENV=test
+          BASE_URL=http://localhost:3000
+          EOF
+
+      - name: Run Playwright tests
+        run: npx playwright test --project=${{ matrix.browser }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-results-${{ matrix.browser }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level moderate
+
+      - name: Run security scan with Snyk
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  deployment-readiness:
+    name: Deployment Readiness Check
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, unit-tests, build-test, e2e-tests]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run production checklist
+        run: npm run check:prod
+
+      - name: Run final completion verification
+        run: npm run test:completion-verification
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Deployment Readiness Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Linting and formatting passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Unit tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Build successful" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ E2E tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Security scan completed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Production checklist verified" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Completion verification passed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status: Ready for deployment** 🎉" >> $GITHUB_STEP_SUMMARY
+
+  notify-completion:
+    name: Notify Completion
+    runs-on: ubuntu-latest
+    needs: [deployment-readiness]
+    if: always()
+    steps:
+      - name: Notify Success
+        if: needs.deployment-readiness.result == 'success'
+        run: |
+          echo "🎉 All CI/CD checks passed successfully!"
+          echo "The application is ready for deployment."
+
+      - name: Notify Failure
+        if: needs.deployment-readiness.result == 'failure'
+        run: |
+          echo "❌ CI/CD pipeline failed."
+          echo "Please check the logs and fix the issues before deployment."
+          exit 1

@@ -1,0 +1,18 @@
+{
+  "name": "nsc-bot-database-migration",
+  "version": "1.0.0",
+  "description": "Database migration scripts for NSC Bot Platform",
+  "main": "migrate-simple.js",
+  "scripts": {
+    "migrate": "node migrate-simple.js",
+    "verify": "node verify.js",
+    "reset": "node reset.js"
+  },
+  "keywords": ["database", "migration", "neondb", "postgresql"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.0",
+    "dotenv": "^16.3.1"
+  }
+}

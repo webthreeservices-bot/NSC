@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/LENOVO/Desktop/nsc-test/vercel-download/src/lib/wagmi-config.ts"],"sourcesContent":["'use client'\r\n\r\nconst WEB3_DISABLED = process.env.NEXT_PUBLIC_WEB3_DISABLED === 'true' || process.env.WEB3_DISABLED === 'true'\r\n\r\nlet wagmiConfig: any = null\r\n\r\nif (!WEB3_DISABLED) {\r\n  // Require wagmi packages only when web3 is enabled\r\n  const { createConfig } = require('wagmi')\r\n  const { bsc } = require('wagmi/chains')\r\n  const { injected, walletConnect } = require('wagmi/connectors')\r\n\r\n  wagmiConfig = createConfig({\r\n    chains: [bsc],\r\n    connectors: [\r\n      walletConnect({\r\n        projectId: '5205185a02961ead5f11a0af7b1489bd', // WalletConnect project ID\r\n        showQrModal: true,\r\n      }),\r\n      injected(),\r\n    ],\r\n  })\r\n}\r\n\r\nexport { wagmiConfig }"],"names":[],"mappings":";;;;AAEsB;AAFtB;AAEA,MAAM,gBAAgB,2KAAO,CAAC,GAAG,CAAC,yBAAyB,KAAK,UAAU,2KAAO,CAAC,GAAG,CAAC,aAAa,KAAK;AAExG,IAAI,cAAmB;AAEvB,IAAI,CAAC,eAAe;IAClB,mDAAmD;IACnD,MAAM,EAAE,YAAY,EAAE;IACtB,MAAM,EAAE,GAAG,EAAE;IACb,MAAM,EAAE,QAAQ,EAAE,aAAa,EAAE;IAEjC,cAAc,aAAa;QACzB,QAAQ;YAAC;SAAI;QACb,YAAY;YACV,cAAc;gBACZ,WAAW;gBACX,aAAa;YACf;YACA;SACD;IACH;AACF"}}]
+}

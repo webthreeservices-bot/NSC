@@ -1,0 +1,314 @@
+name: Performance & Load Testing
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # Run performance tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      load_test_duration:
+        description: 'Load test duration in minutes'
+        required: false
+        default: '5'
+        type: string
+
+env:
+  NODE_VERSION: '18.17.0'
+
+jobs:
+  performance-tests:
+    name: Performance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Create test environment file
+        run: |
+          cat > .env.local << EOF
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          NEXT_PUBLIC_APP_NAME="NSC Bot Platform"
+          DATABASE_URL=postgresql://test:test@localhost:5432/testdb
+          JWT_SECRET=test-jwt-secret-key-for-ci
+          ADMIN_JWT_SECRET=test-admin-jwt-secret-key-for-ci
+          NEXTAUTH_SECRET=test-nextauth-secret-for-ci
+          ENCRYPTION_KEY=test-encryption-key-32-chars-long
+          NODE_ENV=test
+          BASE_URL=http://localhost:3000
+          EOF
+
+      - name: Run performance tests
+        run: npm run test:performance
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: performance-results
+          path: |
+            test-results/performance/
+            playwright-report/
+          retention-days: 14
+
+  lighthouse-audit:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start application
+        run: npm start &
+        env:
+          NODE_ENV: production
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: './lighthouse.config.js'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  load-testing:
+    name: Load Testing
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Artillery
+        run: npm install -g artillery@latest
+
+      - name: Create load test configuration
+        run: |
+          cat > load-test.yml << EOF
+          config:
+            target: 'http://localhost:3000'
+            phases:
+              - duration: ${{ github.event.inputs.load_test_duration || '5' }}
+                arrivalRate: 10
+                name: "Warm up"
+              - duration: ${{ github.event.inputs.load_test_duration || '5' }}
+                arrivalRate: 50
+                name: "Ramp up load"
+              - duration: ${{ github.event.inputs.load_test_duration || '5' }}
+                arrivalRate: 100
+                name: "Sustained load"
+          scenarios:
+            - name: "Homepage and auth flow"
+              weight: 70
+              flow:
+                - get:
+                    url: "/"
+                - get:
+                    url: "/login"
+                - post:
+                    url: "/api/auth/login"
+                    json:
+                      email: "test@example.com"
+                      password: "testpass123"
+            - name: "Dashboard access"
+              weight: 20
+              flow:
+                - get:
+                    url: "/dashboard"
+                - get:
+                    url: "/api/user/profile"
+            - name: "Package browsing"
+              weight: 10
+              flow:
+                - get:
+                    url: "/packages"
+                - get:
+                    url: "/api/packages"
+          EOF
+
+      - name: Build and start application
+        run: |
+          npm run build
+          npm start &
+          npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Run load tests
+        run: artillery run load-test.yml --output load-test-results.json
+
+      - name: Generate load test report
+        run: artillery report load-test-results.json --output load-test-report.html
+
+      - name: Upload load test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: load-test-results
+          path: |
+            load-test-results.json
+            load-test-report.html
+          retention-days: 14
+
+  memory-leak-detection:
+    name: Memory Leak Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Create memory leak test
+        run: |
+          cat > tests/memory-leak-detection.spec.ts << 'EOF'
+          import { test, expect } from '@playwright/test';
+
+          test.describe('Memory Leak Detection', () => {
+            test('should not have memory leaks in main user flows', async ({ page }) => {
+              // Navigate to homepage and measure initial memory
+              await page.goto('/');
+              const initialMemory = await page.evaluate(() => performance.memory?.usedJSHeapSize || 0);
+              
+              // Simulate user interactions that previously had memory leaks
+              for (let i = 0; i < 10; i++) {
+                await page.goto('/dashboard');
+                await page.waitForTimeout(1000);
+                await page.goto('/packages');
+                await page.waitForTimeout(1000);
+                await page.goto('/profile');
+                await page.waitForTimeout(1000);
+              }
+              
+              // Force garbage collection and measure final memory
+              await page.evaluate(() => {
+                if (window.gc) window.gc();
+              });
+              
+              const finalMemory = await page.evaluate(() => performance.memory?.usedJSHeapSize || 0);
+              const memoryIncrease = finalMemory - initialMemory;
+              const memoryIncreasePercent = (memoryIncrease / initialMemory) * 100;
+              
+              console.log(`Initial memory: ${initialMemory} bytes`);
+              console.log(`Final memory: ${finalMemory} bytes`);
+              console.log(`Memory increase: ${memoryIncrease} bytes (${memoryIncreasePercent.toFixed(2)}%)`);
+              
+              // Memory should not increase by more than 50% after user interactions
+              expect(memoryIncreasePercent).toBeLessThan(50);
+            });
+
+            test('should clean up intervals and timeouts', async ({ page }) => {
+              await page.goto('/');
+              
+              // Override setTimeout and setInterval to track calls
+              await page.addInitScript(() => {
+                let timeoutCount = 0;
+                let intervalCount = 0;
+                let clearTimeoutCount = 0;
+                let clearIntervalCount = 0;
+                
+                const originalSetTimeout = window.setTimeout;
+                const originalSetInterval = window.setInterval;
+                const originalClearTimeout = window.clearTimeout;
+                const originalClearInterval = window.clearInterval;
+                
+                window.setTimeout = (...args) => {
+                  timeoutCount++;
+                  return originalSetTimeout.apply(window, args);
+                };
+                
+                window.setInterval = (...args) => {
+                  intervalCount++;
+                  return originalSetInterval.apply(window, args);
+                };
+                
+                window.clearTimeout = (...args) => {
+                  clearTimeoutCount++;
+                  return originalClearTimeout.apply(window, args);
+                };
+                
+                window.clearInterval = (...args) => {
+                  clearIntervalCount++;
+                  return originalClearInterval.apply(window, args);
+                };
+                
+                (window as any).getTimerStats = () => ({
+                  timeoutCount,
+                  intervalCount,
+                  clearTimeoutCount,
+                  clearIntervalCount
+                });
+              });
+              
+              // Navigate through pages that use timers
+              await page.goto('/dashboard');
+              await page.waitForTimeout(2000);
+              await page.goto('/packages');
+              await page.waitForTimeout(2000);
+              
+              const stats = await page.evaluate(() => (window as any).getTimerStats());
+              console.log('Timer stats:', stats);
+              
+              // Verify that timeouts and intervals are being cleaned up
+              // Allow some tolerance for legitimate timers
+              const cleanupRatio = (stats.clearTimeoutCount + stats.clearIntervalCount) / 
+                                   (stats.timeoutCount + stats.intervalCount);
+              
+              expect(cleanupRatio).toBeGreaterThan(0.7); // At least 70% cleanup rate
+            });
+          });
+          EOF
+
+      - name: Run memory leak detection tests
+        run: npx playwright test memory-leak-detection.spec.ts
+
+      - name: Upload memory test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: memory-leak-results
+          path: test-results/
+          retention-days: 14

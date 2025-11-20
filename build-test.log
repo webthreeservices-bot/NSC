@@ -1,0 +1,194 @@
+
+> nsc-bot-platform@1.0.0 build
+> cross-env NODE_OPTIONS='--no-warnings --max-old-space-size=4096' next build --webpack
+
+   ▲ Next.js 16.0.3 (webpack)
+   - Environments: .env
+   - Experiments (use with caution):
+     · serverActions
+
+   Creating an optimized production build ...
+/*! 🌼 daisyUI 5.5.3 */
+ ✓ Compiled successfully in 33.0s
+   Skipping validation of types
+   Collecting page data using 11 workers ...
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+   Generating static pages using 11 workers (0/104) ...
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+(node:9944) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18080) Warning: `--localstorage-file` was provided without a valid path
+(Use `node --trace-warnings ...` to show where the warning was created)
+🔥 Database pool initialization deferred to first query
+✅ Database will connect on first query
+   Generating static pages using 11 workers (26/104) 
+   Generating static pages using 11 workers (52/104) 
+   Generating static pages using 11 workers (78/104) 
+ ✓ Generating static pages using 11 workers (104/104) in 5.8s
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin
+├ ○ /admin/compliance
+├ ○ /admin/dashboard
+├ ○ /admin/login
+├ ○ /admin/packages
+├ ○ /admin/roi-settings
+├ ○ /admin/settings
+├ ○ /admin/statistics
+├ ○ /admin/transactions
+├ ○ /admin/users
+├ ○ /admin/withdrawals
+├ ƒ /api/[...notfound]
+├ ƒ /api/admin/bot-packages
+├ ƒ /api/admin/compliance/stats
+├ ƒ /api/admin/cron/expiration/trigger
+├ ƒ /api/admin/cron/roi/trigger
+├ ƒ /api/admin/cron/status
+├ ƒ /api/admin/financial-stats
+├ ƒ /api/admin/kyc
+├ ƒ /api/admin/login
+├ ƒ /api/admin/package-types
+├ ƒ /api/admin/packages
+├ ƒ /api/admin/packages/[id]/approve
+├ ƒ /api/admin/payments/list
+├ ƒ /api/admin/payments/scan
+├ ƒ /api/admin/payments/stats
+├ ƒ /api/admin/roi-settings
+├ ƒ /api/admin/security/login-stats
+├ ƒ /api/admin/sessions/cleanup
+├ ƒ /api/admin/sessions/manage
+├ ƒ /api/admin/sessions/stats
+├ ƒ /api/admin/statistics
+├ ƒ /api/admin/stats
+├ ƒ /api/admin/system-settings
+├ ƒ /api/admin/transactions
+├ ƒ /api/admin/transactions/with-blockchain
+├ ƒ /api/admin/transactions/with-blockchain-cached
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/[id]/block
+├ ƒ /api/admin/users/[id]/kyc
+├ ƒ /api/admin/wallet-address
+├ ƒ /api/admin/withdrawals
+├ ƒ /api/admin/withdrawals/[id]/approve
+├ ƒ /api/admin/withdrawals/[id]/reject
+├ ƒ /api/admin/withdrawals/pending
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/auth/csrf-token
+├ ƒ /api/auth/disable-2fa
+├ ƒ /api/auth/enable-2fa
+├ ƒ /api/auth/forgot-password
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ƒ /api/auth/refresh
+├ ƒ /api/auth/register
+├ ƒ /api/auth/reset-password
+├ ƒ /api/auth/validate
+├ ƒ /api/auth/verify-2fa
+├ ƒ /api/auth/verify-email
+├ ƒ /api/blockchain/transaction
+├ ƒ /api/bots/activate
+├ ƒ /api/bots/activate-selected
+├ ƒ /api/bots/activate-with-payment
+├ ƒ /api/bots/check-eligibility
+├ ƒ /api/bots/eligibility
+├ ƒ /api/bots/my-bots
+├ ƒ /api/cron/init
+├ ƒ /api/earnings/history
+├ ƒ /api/earnings/summary
+├ ƒ /api/health
+├ ƒ /api/legal
+├ ƒ /api/legal/accept
+├ ƒ /api/packages
+├ ƒ /api/packages/[id]
+├ ƒ /api/packages/[id]/verify-deposit
+├ ƒ /api/packages/create
+├ ƒ /api/packages/create-with-payment
+├ ƒ /api/packages/my-packages
+├ ƒ /api/packages/roi-schedule
+├ ƒ /api/packages/stats
+├ ƒ /api/payments/[id]
+├ ƒ /api/payments/[id]/qr
+├ ƒ /api/payments/[id]/verify
+├ ƒ /api/payments/create
+├ ƒ /api/payments/my-requests
+├ ƒ /api/payments/status
+├ ƒ /api/payments/webhook
+├ ƒ /api/proxy
+├ ƒ /api/referrals/direct
+├ ƒ /api/referrals/level-breakdown
+├ ƒ /api/referrals/stats
+├ ƒ /api/referrals/tree
+├ ƒ /api/support/ticket
+├ ƒ /api/transactions
+├ ƒ /api/transactions/history
+├ ƒ /api/transactions/with-blockchain
+├ ƒ /api/transactions/with-blockchain-cached
+├ ƒ /api/user/change-password
+├ ƒ /api/user/kyc
+├ ƒ /api/user/kyc/submit
+├ ƒ /api/user/profile
+├ ƒ /api/user/referral-code
+├ ƒ /api/user/referrals
+├ ƒ /api/withdrawals/check-eligibility
+├ ƒ /api/withdrawals/history
+├ ƒ /api/withdrawals/request
+├ ○ /bots
+├ ○ /bots/activate
+├ ○ /contact
+├ ○ /cookie-policy
+├ ○ /dashboard
+├ ○ /earnings
+├ ○ /forgot-password
+├ ○ /kyc
+├ ○ /labs
+├ ○ /login
+├ ○ /network
+├ ○ /packages
+├ ƒ /packages/[id]
+├ ○ /packages/buy
+├ ○ /pricing
+├ ○ /privacy
+├ ○ /privacy-policy
+├ ○ /profile
+├ ƒ /proxy
+├ ○ /referral-bonus
+├ ○ /referrals
+├ ○ /register
+├ ○ /reset-password
+├ ○ /roi
+├ ○ /security
+├ ○ /support
+├ ○ /team-performance
+├ ○ /terms
+├ ○ /terms-of-service
+├ ○ /transactions
+├ ○ /verify-email
+├ ○ /withdrawals
+└ ○ /withdrawals/request
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

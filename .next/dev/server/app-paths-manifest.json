@@ -1,0 +1,12 @@
+{
+  "/(dashboard)/bots/page": "app/(dashboard)/bots/page.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/demo/page": "app/(dashboard)/demo/page.js",
+  "/(dashboard)/packages/page": "app/(dashboard)/packages/page.js",
+  "/api/admin/wallet-address/route": "app/api/admin/wallet-address/route.js",
+  "/api/auth/validate/route": "app/api/auth/validate/route.js",
+  "/api/bots/my-bots/route": "app/api/bots/my-bots/route.js",
+  "/api/earnings/summary/route": "app/api/earnings/summary/route.js",
+  "/api/packages/my-packages/route": "app/api/packages/my-packages/route.js",
+  "/api/user/profile/route": "app/api/user/profile/route.js"
+}

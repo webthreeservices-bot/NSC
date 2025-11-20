@@ -1,0 +1,40 @@
+// THIS FILE HAS BEEN DISABLED
+// It contained dangerous process.exit(-1) that crashes the entire server
+// Use lib/db-connection.ts instead
+// Original file backed up here for reference
+
+import { Pool } from 'pg'
+
+// Create a PostgreSQL connection pool with better error handling
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000, // Increased timeout for better reliability,
+})
+
+// Add error handling for the pool
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1) // ❌ DANGEROUS - Crashes entire server
+})
+
+// Test database connection
+export async function testConnection() {
+  let client
+  try {
+    client = await pool.connect()
+    const result = await client.query('SELECT NOW()')
+    console.log('Database connection successful:', result.rows[0])
+    return true
+  } catch (err) {
+    console.error('Database connection error:', err)
+    return false
+  } finally {
+    if (client) client.release()
+  }
+}
+
+// Export the pool for use in other modules
+export default pool

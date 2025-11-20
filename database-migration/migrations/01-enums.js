@@ -1,0 +1,88 @@
+module.exports = {
+  name: '01-enums',
+  description: 'Create all ENUM types (15+ types)',
+  sql: `
+-- ============================================================================
+-- ENUM TYPES - All enumerated types used in the platform
+-- ============================================================================
+
+CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN', 'SUPER_ADMIN');
+
+CREATE TYPE "PackageType" AS ENUM ('NEO', 'NEURAL', 'ORACLE');
+
+CREATE TYPE "PackageStatus" AS ENUM (
+  'PENDING', 'ACTIVE', 'EXPIRED', 'WITHDRAWN', 'CANCELLED', 'COMPLETED'
+);
+
+CREATE TYPE "TransactionType" AS ENUM (
+  'DEPOSIT', 'WITHDRAWAL', 'BOT_FEE', 'BOT_ACTIVATION', 'ROI_PAYMENT',
+  'REFERRAL_BONUS', 'LEVEL_INCOME', 'CAPITAL_RETURN', 'PACKAGE_PURCHASE',
+  'ADMIN_CREDIT', 'ADMIN_DEBIT'
+);
+
+CREATE TYPE "TransactionStatus" AS ENUM (
+  'PENDING', 'CONFIRMING', 'COMPLETED', 'FAILED', 'REJECTED'
+);
+
+CREATE TYPE "EarningType" AS ENUM (
+  'DIRECT_REFERRAL', 'LEVEL_INCOME', 'REFERRAL', 'ROI', 'DIRECT', 'BONUS'
+);
+
+CREATE TYPE "WithdrawalStatus" AS ENUM (
+  'PENDING', 'APPROVED', 'PROCESSING', 'COMPLETED', 'REJECTED', 'CANCELLED'
+);
+
+CREATE TYPE "WithdrawalType" AS ENUM (
+  'ROI_ONLY', 'CAPITAL', 'CAPITAL_ONLY', 'FULL_AMOUNT'
+);
+
+CREATE TYPE "KYCStatus" AS ENUM (
+  'PENDING', 'SUBMITTED', 'APPROVED', 'REJECTED', 'RESUBMIT'
+);
+
+CREATE TYPE "PaymentStatus" AS ENUM (
+  'PENDING', 'CONFIRMING', 'COMPLETED', 'FAILED', 'EXPIRED', 'CANCELLED'
+);
+
+CREATE TYPE "NotificationType" AS ENUM (
+  'INFO', 'SUCCESS', 'WARNING', 'ERROR', 'PAYMENT', 'WITHDRAWAL',
+  'REFERRAL', 'ROI', 'KYC', 'SECURITY'
+);
+
+CREATE TYPE "TicketStatus" AS ENUM (
+  'OPEN', 'IN_PROGRESS', 'WAITING_USER', 'WAITING_ADMIN',
+  'RESOLVED', 'CLOSED', 'REOPENED'
+);
+
+CREATE TYPE "TicketPriority" AS ENUM (
+  'LOW', 'MEDIUM', 'HIGH', 'URGENT', 'CRITICAL'
+);
+
+CREATE TYPE "AdminActionType" AS ENUM (
+  'APPROVE_WITHDRAWAL', 'REJECT_WITHDRAWAL', 'APPROVE_PACKAGE', 'REJECT_PACKAGE',
+  'UPDATE_SETTING', 'APPROVE_KYC', 'REJECT_KYC', 'BLOCK_USER', 'UNBLOCK_USER',
+  'CREDIT_BALANCE', 'DEBIT_BALANCE', 'TRIGGER_ROI', 'TRIGGER_EXPIRATION',
+  'UPDATE_USER', 'DELETE_USER', 'VIEW_STATISTICS', 'EXPORT_DATA'
+);
+
+CREATE TYPE "Network" AS ENUM (
+  'BEP20', 'TRC20', 'ERC20', 'POLYGON', 'MANUAL'
+);
+
+CREATE TYPE "RoiPaymentStatus" AS ENUM (
+  'PENDING', 'PROCESSING', 'COMPLETED', 'FAILED', 'SKIPPED'
+);
+
+CREATE TYPE "BotStatus" AS ENUM (
+  'ACTIVE', 'EXPIRED', 'INACTIVE', 'SUSPENDED', 'PENDING'
+);
+
+CREATE TYPE "SessionStatus" AS ENUM (
+  'ACTIVE', 'EXPIRED', 'REVOKED', 'INVALID'
+);
+
+CREATE TYPE "CronJobStatus" AS ENUM (
+  'IDLE', 'RUNNING', 'COMPLETED', 'FAILED', 'DISABLED'
+);
+`
+};

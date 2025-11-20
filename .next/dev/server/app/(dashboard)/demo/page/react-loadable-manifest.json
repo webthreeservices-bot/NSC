@@ -1,0 +1,14 @@
+{
+  "[project]/node_modules/wagmi/dist/index.js [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/node_modules/wagmi/dist/index.js [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_viem__esm_03d13021._.js",
+      "static/chunks/node_modules_cc76cfc7._.js",
+      "static/chunks/node_modules_wagmi_dist_index_fc71d18a.js",
+      "static/chunks/node_modules_viem__esm_ac8058cc._.js",
+      "static/chunks/node_modules_viem__esm_utils_ccip_9e47f7f3.js",
+      "static/chunks/node_modules_32920f3e._.js",
+      "static/chunks/node_modules_viem__esm_ens_index_6fa19604.js"
+    ]
+  }
+}

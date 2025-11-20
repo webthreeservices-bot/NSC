@@ -1,0 +1,112 @@
+[00:00:02.481] Server  LOG      ✓ Ready in 1851ms
+[00:00:08.562] Server  LOG      ○ Compiling /demo ...
+[00:00:11.694] Server  LOG     🔥 Database pool initialization deferred to first query
+[00:00:11.695] Server  LOG     ✅ Database will connect on first query
+[00:00:12.496] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:12.944] Browser LOG     🛡️ Global error handlers initialized
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser LOG     🔍 Validating existing token...
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser LOG     Scheduling token refresh in 1385 minutes
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser LOG     ✅ Token found in storage
+[00:00:12.944] Browser ERROR   unhandledRejection: TypeError: walletConnect is not a function
+[00:00:12.944] Browser ERROR   Unhandled promise rejection: {}
+[00:00:13.522] Server  LOG     [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+[00:00:13.973] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     🔍 Validating existing token...
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     🔍 Validating existing token...
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:13.973] Browser LOG     ✅ Token found in storage
+[00:00:14.185] Server  LOG     🚀 Database pool initialized for NeonDB
+[00:00:15.056] Server  LOG     ✅ New client connected to NeonDB
+[00:00:15.657] Server  LOG     ✅ New client connected to NeonDB
+[00:00:38.175] Browser LOG     ✅ Token found in storage
+[00:00:38.175] Browser LOG     ✅ Token found in storage
+[00:00:38.748] Server  LOG     📊 Earnings summary for user 711582ae-d5df-41df-a3f3-59ef6ea1d917: {}
+[00:00:38.832] Server  LOG     📊 Earnings summary for user 711582ae-d5df-41df-a3f3-59ef6ea1d917: {}
+[00:00:39.069] Server  LOG     ✅ New client connected to NeonDB
+[00:00:39.077] Server  LOG     ✅ New client connected to NeonDB
+[00:00:39.085] Server  LOG     ✅ New client connected to NeonDB
+[00:00:39.263] Browser LOG     ✅ Earnings data received: {"success":true,"summary":{"levelEarnings":0,"lockedCapital":0,"referralEarnings":0,"roiEarnings":0,"totalEarnings":0,"withdrawableBalance":0}}
+[00:00:39.416] Browser LOG     ✅ Earnings data received: {"success":true,"summary":{"levelEarnings":0,"lockedCapital":0,"referralEarnings":0,"roiEarnings":0,"totalEarnings":0,"withdrawableBalance":0}}
+[00:00:47.232] Browser LOG     ✅ Token found in storage
+[00:00:47.232] Browser LOG     ✅ Token found in storage
+[00:00:53.119] Browser LOG     ✅ Token found in storage
+[00:00:53.119] Browser LOG     Fetching bots from API...
+[00:00:53.119] Browser LOG     ✅ Token found in storage
+[00:00:53.119] Browser LOG     Fetching bots from API...
+[00:00:53.313] Server  LOG     📊 Found 0 bots for user 711582ae-d5df-41df-a3f3-59ef6ea1d917: []
+[00:00:53.390] Server  LOG     ✅ Returning 0 bots to frontend
+[00:00:53.473] Server  LOG     📊 Found 0 bots for user 711582ae-d5df-41df-a3f3-59ef6ea1d917: []
+[00:00:53.495] Browser LOG     Bots API response: {"bots":[],"eligibility":{"NEO":false,"NEURAL":false,"ORACLE":false},"success":true}
+[00:00:53.495] Browser LOG     Bots data: []
+[00:00:53.548] Server  LOG     ✅ Returning 0 bots to frontend
+[00:00:53.653] Browser LOG     Bots API response: {"bots":[],"eligibility":{"NEO":false,"NEURAL":false,"ORACLE":false},"success":true}
+[00:00:53.653] Browser LOG     Bots data: []
+[00:08:46.742] Server  LOG     🔌 Client removed from pool
+[00:08:46.748] Server  ERROR   ❌ Unexpected error on idle client: Error: Connection terminated unexpectedly
+[00:08:46.749] Server  ERROR   Connection will be removed from pool and recreated automatically
+[00:08:46.751] Server  LOG     🔌 Client removed from pool
+[00:08:46.752] Server  ERROR   ❌ Unexpected error on idle client: Error: Connection terminated unexpectedly
+[00:08:46.752] Server  ERROR   Connection will be removed from pool and recreated automatically
+[00:08:46.753] Server  LOG     🔌 Client removed from pool
+[00:08:46.755] Server  ERROR   ❌ Unexpected error on idle client: Error: Connection terminated unexpectedly
+[00:08:46.755] Server  ERROR   Connection will be removed from pool and recreated automatically
+[00:08:46.756] Server  LOG     🔌 Client removed from pool
+[00:08:46.758] Server  ERROR   ❌ Unexpected error on idle client: Error: Connection terminated unexpectedly
+[00:08:46.758] Server  ERROR   Connection will be removed from pool and recreated automatically
+[00:08:46.759] Server  LOG     🔌 Client removed from pool
+[00:08:46.761] Server  ERROR   ❌ Unexpected error on idle client: Error: Connection terminated unexpectedly
+[00:08:46.761] Server  ERROR   Connection will be removed from pool and recreated automatically
+[00:19:15.070] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:16.998] Browser LOG     🛡️ Global error handlers initialized
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     🔍 Validating existing token...
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     Scheduling token refresh in 1365 minutes
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     🔍 Validating existing token...
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     Fetching bots from API...
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.998] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser LOG     🔍 Validating existing token...
+[00:19:16.999] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser LOG     Fetching bots from API...
+[00:19:16.999] Browser LOG     Bots API response: {"bots":[],"eligibility":{"NEO":false,"NEURAL":false,"ORACLE":false},"success":true}
+[00:19:16.999] Browser LOG     Bots data: []
+[00:19:16.999] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:19:16.999] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser LOG     Bots API response: {"bots":[],"eligibility":{"NEO":false,"NEURAL":false,"ORACLE":false},"success":true}
+[00:19:16.999] Browser LOG     Bots data: []
+[00:19:16.999] Browser LOG     ✅ Token valid, user authenticated: admin@admin.com
+[00:19:16.999] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser LOG     ✅ Token found in storage
+[00:19:16.999] Browser ERROR   unhandledRejection: TypeError: walletConnect is not a function
+[00:19:16.999] Browser ERROR   Unhandled promise rejection: {}

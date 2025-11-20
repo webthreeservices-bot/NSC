@@ -1,0 +1,18 @@
+-- Configure psql to connect to NeonDB
+\set QUIET 1
+\pset null '(null)'
+\pset linestyle 'unicode'
+\pset border 2
+\pset format aligned
+\timing
+\set VERBOSITY verbose
+\set HISTFILE ~/.psql_history
+\set HISTCONTROL ignoredups
+\unset QUIET
+
+-- Set connection parameters
+\set PGHOST 'ep-empty-surf-a17lpl49-pooler.ap-southeast-1.aws.neon.tech'
+\set PGDATABASE 'neondb'
+\set PGUSER 'neondb_owner'
+\set PGPASSWORD 'npg_JsN5Z0KwCtaV'
+\set PGSSLMODE 'require'

@@ -1,0 +1,1 @@
+"use strict";exports.id=9227,exports.ids=[9227],exports.modules={39227:(a,b,c)=>{c.r(b),c.d(b,{default:()=>h,referralDistributionQueue:()=>g});var d=c(24503),e=c.n(d);let f=process.env.REDIS_URL||"redis://127.0.0.1:6379",g=new(e())("referralDistribution",f),h=g}};
